@@ -25,7 +25,7 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 
 	private Context context;
 	
-	private static final int VERSION = 3;
+	private static final int VERSION = 4;
 	private static final String DATABASE_NAME = "matchDB";
 	private static final String DATABASE_TABLE = "matches";
 	//private static final String MATCH_NUMBER_COL = "MatchNum";
@@ -73,13 +73,14 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 				BitmapEntry b = new BitmapEntry();
 
 				b.setName(cursor.getString(0));
+				b.setNotes(cursor.getString(1));
 				
-				if(!cursor.isNull(1))
+				if(!cursor.isNull(2))
 				{
-					Bitmap autoRoute = retrieveBitmapFromInternalStorage(cursor.getString(1));
+					Bitmap autoRoute = retrieveBitmapFromInternalStorage(cursor.getString(2));
 					b.setBitmap(autoRoute);
 				}
-				b.setNotes(cursor.getString(2));
+				
 				
 				bitmaps.add(b);
 			}while(cursor.moveToNext());
