@@ -117,7 +117,6 @@ public class SavedRoutesFragment extends Fragment {
 					int position, long id) {
 				displayBitmapEntry(savedRoutes.get(position));
 				notesView.setText(savedRoutes.get(position).getNotes());
-				drawingView.setVisibility(View.VISIBLE);
 				notesView.setVisibility(View.VISIBLE);
 			}
 
@@ -164,7 +163,10 @@ public class SavedRoutesFragment extends Fragment {
 	{
 		Bitmap b = entry.getBitmap();
 		if(b == null)
+		{
 			Toast.makeText(getActivity(), entry.getName() +" was not able to be displayed.", Toast.LENGTH_LONG).show();
+			drawingView.setVisibility(View.INVISIBLE);
+		}
 		else
 		{
 			drawingView.setNewImage(entry.getBitmap());

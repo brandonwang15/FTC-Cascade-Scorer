@@ -218,8 +218,11 @@ public class DrawingFragment extends Fragment implements OnClickListener{
 	{
 		if(d == null)
 			return null;
-		d.setDrawingCacheEnabled(true);
-		return d.getDrawingCache();
+		//IMPORTANT: Must set drawing cache enabled true before AND set enabled false after - otherwise the cache is never refreshed (or something - either way it breaks)
+		d.buildDrawingCache();
+		Bitmap image = d.getDrawingCache().copy(Bitmap.Config.ARGB_8888,false);//make a copy of the bitmap so it doesn't get recycled with destoryDrwaingCache()
+		d.destroyDrawingCache();
+		return image;
 		
 //		Bitmap b = Bitmap.createBitmap(d.getWidth(), d.getHeight(), Bitmap.Config.ARGB_8888);
 //		Canvas c = new Canvas(b);
