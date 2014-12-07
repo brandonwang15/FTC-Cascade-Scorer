@@ -3,10 +3,11 @@ package bw.cascade;
 
 import java.util.ArrayList;
 
-import bw.cascade.misc.BitmapEntry;
-
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,9 +19,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import bw.cascade.misc.BitmapEntry;
 
 public class DrawingFragment extends Fragment implements OnClickListener{
 	
@@ -132,12 +135,68 @@ public class DrawingFragment extends Fragment implements OnClickListener{
 	 */
 	private void saveCurrentRoute()
 	{
-		BitmapEntry entry = new BitmapEntry();
-		//TODO: prompt user to input title 
-		entry.setBitmapName("placeholder_name");
-		entry.setBitmap(getAutonomousBitmap());
-		callback.addSavedAutoRoute(entry);
-		Toast.makeText(getActivity(), "Image saved!", Toast.LENGTH_LONG).show();
+		final BitmapEntry entry = new BitmapEntry();
+		
+		//Create dialog to prompt for save name and notes
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		LayoutInflater inflater = getActivity().getLayoutInflater();
+		View dialogView = inflater.inflate(R.layout.dialog_text_input, null);
+		final EditText nameField = (EditText) dialogView.findViewById(R.id.nameField);
+		final EditText notesField = (EditText)dialogView.findViewById(R.id.extraInfoField);
+		
+		//initalize dialog
+		builder.setView(dialogView)
+				.setPositiveButton(R.string.save_bitmap, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						return;
+						//nothing for now, will be overriden later
+					}		
+				})
+				.setNegativeButton(R.string.cancel_bitmap, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						return;//do nothing
+					}			
+				})
+				.setTitle("Save Route");
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		
+		//override the dialog button behavior here, so that the automatic closing of the dialog when a button is clicked can be avoided
+		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String name = nameField.getText().toString().trim();
+				
+				//name must have non-whitespace characters
+				if(name.equals(""))
+				{
+					Toast.makeText(getActivity(), "You can't input an empty name!", Toast.LENGTH_LONG).show();
+					return;//end without closing dialog
+				}
+				
+				//check if given name already exists
+				if(callback.doesSaveNameExist(name))
+				{
+					Toast.makeText(getActivity(), "A saved route with the name:\"" +nameField.getText().toString() +"\" already exists!", Toast.LENGTH_LONG).show();
+					return;//end without closing dialog
+				}
+				
+				//if all data is valid
+				entry.setName(name);
+				entry.setBitmap(getAutonomousBitmap());
+				entry.setNotes(notesField.getText().toString().trim());
+				callback.addSavedAutoRoute(entry);
+				Toast.makeText(getActivity(), "Image saved!", Toast.LENGTH_LONG).show();
+				dialog.dismiss();
+				
+			}
+		});
+	
 	}
 	
 	/***
