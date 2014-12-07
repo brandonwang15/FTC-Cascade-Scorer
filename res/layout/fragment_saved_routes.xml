@@ -1,38 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/deleteSaveBtn"
+        android:layout_alignParentTop="true"
+        android:fillViewport="true" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
-            <Spinner
-                android:id="@+id/selectSavedImageSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true" />
 
             <FrameLayout
                 android:id="@+id/savedRouteDisplayFrame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/selectSavedImageSpinner"
-                android:layout_centerHorizontal="true" >
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="No routes!"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
             </FrameLayout>
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/notesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/savedRouteDisplayFrame"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
+            <Spinner
+                android:id="@+id/selectSavedImageSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView1" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/selectSavedImageSpinner"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical|fill_horizontal"
+                android:text="Select route:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColorHint="@android:color/holo_blue_light"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/deleteSaveBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Delete " />
+
+</RelativeLayout>

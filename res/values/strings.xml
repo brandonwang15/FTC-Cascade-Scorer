@@ -1,5 +1,9 @@
 <resources>
 
     <string name="app_name">Cascade Effect Scorer</string>
-
+	<string name="save_bitmap">Save</string>
+	<string name="cancel_bitmap">Cancel</string>
+	<string name="attribution_txt"><![CDATA[<div>Icons made by Freepik from <a href="http://www.flaticon.com" 
+	    title="Flaticon">www.flaticon.com</a>         is licensed by <a href="http://creativecommons.org/license
+	    s/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>]]></string>
 </resources>

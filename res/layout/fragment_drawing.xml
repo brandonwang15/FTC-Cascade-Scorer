@@ -1,105 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true" >
+    android:layout_height="match_parent" >
 
-    <GridLayout
-        android:id="@+id/drawing_fragment_grid_layout"
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="1" >
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/saveImageBtn">
 
-        <LinearLayout
-            android:id="@+id/buttonsLayout"
-            android:layout_width="fill_parent"
+        <GridLayout
+            android:id="@+id/drawing_fragment_grid_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="0" >
+            android:columnCount="1" >
 
-            <Button
-                android:id="@+id/clearDrawingsButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Clear" />
-
-            <Button
-                android:id="@+id/switchFieldBtn"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="Flip Center Goal" />
-
-            <Button
-                android:id="@+id/undoBtn"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/buttonsLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
-                android:layout_row="0"
-                android:layout_weight="1"
-                android:text="Undo" />
-        </LinearLayout>
+                android:layout_row="0" >
 
-        <LinearLayout
-            android:id="@+id/drawing_fragment_color_layout"
-            android:layout_width="fill_parent"
-            android:layout_column="0"
-            android:layout_gravity="left|top"
-            android:layout_row="1"
-            android:orientation="horizontal" >
+                <Button
+                    android:id="@+id/clearDrawingsButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Clear" />
 
-            <ImageButton
-                android:id="@+id/blueColorBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="40dp"
-                android:src="@drawable/blue_rectangle" />
+                <Button
+                    android:id="@+id/switchFieldBtn"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Flip Center Goal" />
 
-            <ImageButton
-                android:id="@+id/lightBlueColorBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="40dp"
-                android:src="@drawable/light_blue_rectangle" />
+                <Button
+                    android:id="@+id/undoBtn"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_weight="1"
+                    android:text="Undo" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/redColorBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="40dp"
-                android:src="@drawable/red_rectangle" />
+            <LinearLayout
+                android:id="@+id/drawing_fragment_color_layout"
+                android:layout_width="fill_parent"
+                android:layout_column="0"
+                android:layout_gravity="left|top"
+                android:layout_row="1"
+                android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/lightRedColorBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="40dp"
-                android:src="@drawable/light_red_rectangle" />
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/blueColorBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="40dp"
+                    android:src="@drawable/blue_rectangle" />
 
-        <Button
-            android:id="@+id/saveImageBtn"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_column="0"
-            android:layout_row="2"
-            android:text="Save Image" />
+                <ImageButton
+                    android:id="@+id/lightBlueColorBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="40dp"
+                    android:src="@drawable/light_blue_rectangle" />
 
-        <FrameLayout
-            android:id="@+id/draw_frag_frame"
-            android:layout_column="0"
-            android:layout_gravity="left|top"
-            android:layout_row="3" >
-        </FrameLayout>
-        
-        
-    </GridLayout>
+                <ImageButton
+                    android:id="@+id/redColorBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="40dp"
+                    android:src="@drawable/red_rectangle" />
 
-</ScrollView>
+                <ImageButton
+                    android:id="@+id/lightRedColorBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="40dp"
+                    android:src="@drawable/light_red_rectangle" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/draw_frag_frame"
+                android:layout_column="0"
+                android:layout_gravity="left|top"
+                android:layout_row="2" >
+            </FrameLayout>
+        </GridLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveImageBtn"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Save Image" />
+
+</RelativeLayout>

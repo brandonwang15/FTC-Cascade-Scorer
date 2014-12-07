@@ -57,10 +57,35 @@ public class MainActivity extends Activity {
 
 	}
 
+	/**
+	 * Returns whether the given name is already being used by a saved route bitmap entry
+	 * @param name Name to check
+	 * @return whether name is used
+	 */
+	public boolean doesSaveNameExist(String name)
+	{
+		for(BitmapEntry b : bitmapEntries)
+		{
+			if(b.getName().equals(name))
+				return true;
+		}
+		return false;
+	}
+	
 	public void addSavedAutoRoute(BitmapEntry entry)
 	{
 		bitmapEntries.add(entry);
 		routesDB.addRouteEntry(entry);
 		mSavedRoutesFrag.notifyRouteDataChanged();
+	}
+	
+	/**
+	 * Removes the given entry from the database and arraylist
+	 * @param entry
+	 */
+	public void deleteSavedAutoRoute(BitmapEntry entry)
+	{
+		bitmapEntries.remove(entry);
+		routesDB.deleteEntry(entry);
 	}
 }

@@ -33,6 +33,7 @@ public class DrawingView extends View
 	private boolean isPointerDown;
 	private int pointerX, pointerY;
 
+	
 	public DrawingView(Context context) {
 		super(context);
 		mPaint = new Paint();
@@ -59,7 +60,8 @@ public class DrawingView extends View
 	public void setNewImage(Bitmap image)
 	{
 		mOriginalBackgroundImage = image;
-		scaleBitmap(mScaledBackgroundImage.getWidth());//scale new image to dimensions of old image
+		//redraw
+		this.requestLayout();
 		this.invalidate();
 	}
 	
