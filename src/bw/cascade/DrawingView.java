@@ -120,8 +120,8 @@ public class DrawingView extends View
 		{
 			mPaint.setStrokeWidth(10);
 			canvas.drawCircle(pointerX, pointerY, 30, mPaint);
-			canvas.drawLine(pointerX, pointerY - 100, pointerX, pointerY+100, mPaint);
-			canvas.drawLine(pointerX-100, pointerY, pointerX+100, pointerY, mPaint);
+			canvas.drawLine(pointerX, pointerY - 50, pointerX, pointerY+50, mPaint);
+			canvas.drawLine(pointerX-50, pointerY, pointerX+50, pointerY, mPaint);
 		}
 		
 		mPaint.setAlpha(255);

@@ -34,13 +34,13 @@ public class DrawingFragment extends Fragment implements OnClickListener{
 	private int currentFieldIndex;//index of currentField to show as backgorund for drawingview
 	private Bitmap[] fieldImages;
 	
-	private MainActivity callback;
+	private RouteActivity callback;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		
-		callback = (MainActivity) getActivity();
+		callback = (RouteActivity) getActivity();
 		
 		fieldImages = new Bitmap[3];
 		loadFieldImages();
