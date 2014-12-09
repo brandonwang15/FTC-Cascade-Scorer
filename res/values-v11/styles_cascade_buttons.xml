@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="Buttoncascade" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/cascade_btn_default_holo_light</item>
+  </style>
+
+  
+  <style name="ImageButtoncascade" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/cascade_btn_default_holo_light</item>
+  </style>
+  
+   <!-- My own addition -->
+  <style name="ButtoncascadeSmall" parent="android:Widget.Holo.Light.Button.Small">
+	  <item name="android:background">@drawable/cascade_btn_default_holo_light</item>
+  </style>
+
+</resources>
