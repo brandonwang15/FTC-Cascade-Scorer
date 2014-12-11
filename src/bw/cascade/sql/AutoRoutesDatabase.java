@@ -25,19 +25,20 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 
 	private Context context;
 	
-	private static final int VERSION = 1;
+	private static final int VERSION = 6;
 	private static final String DATABASE_NAME = "matchDB";
 	private static final String DATABASE_TABLE = "matches";
 	//private static final String MATCH_NUMBER_COL = "MatchNum";
 	private static final String ID = "Id";
-	private static final String AUTO_ROUTE_NAME = "AutoRouteName";
+	private static final String AUTO_ROUTE_NAME_COL = "AutoRouteName";
+	private static final String NOTES_COL = "Notes";
 	private static final String AUTO_BITMAP_PATH_COL = "AutonomousBitmapFilePath";
 	
 	//note: booleans are stored as integers 0/1
 	private String CREATE_DATABASE_STATEMENT = 
 			"create table if not exists " + DATABASE_TABLE + 
-			"("+ ID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
-			+ AUTO_ROUTE_NAME + " TEXT," 
+			"("+ AUTO_ROUTE_NAME_COL + " TEXT PRIMARY KEY,"
+			+ NOTES_COL + " TEXT,"
 			+ AUTO_BITMAP_PATH_COL + " TEXT" +")";
 	
 	public AutoRoutesDatabase(Context context) {
@@ -71,13 +72,15 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 				//retrieve information for each match
 				BitmapEntry b = new BitmapEntry();
 
-				b.setBitmapName(cursor.getString(1));
+				b.setName(cursor.getString(0));
+				b.setNotes(cursor.getString(1));
 				
 				if(!cursor.isNull(2))
 				{
 					Bitmap autoRoute = retrieveBitmapFromInternalStorage(cursor.getString(2));
 					b.setBitmap(autoRoute);
 				}
+				
 				
 				bitmaps.add(b);
 			}while(cursor.moveToNext());
@@ -87,24 +90,29 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 	}
 	
 	
-	//TODO: Add deletion 
-//	public void deleteMatch(int matchNumber)
-//	{
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		String bitmapFilePath = getMatchBitmapFilePath(matchNumber);
-//		if(bitmapFilePath != null)
-//			context.deleteFile(bitmapFilePath);
-//		db.delete(DATABASE_TABLE, MATCH_NUMBER_COL + " = ?", new String[]{String.valueOf(matchNumber)});
-//		db.close();
-//	}
+	public void deleteEntry(BitmapEntry entry)
+	{
+		deleteEntry(entry.getName());
+	}
+	
+	
+	public void deleteEntry(String entryName)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		String bitmapFilePath = getEntryBitmapFilePath(entryName);
+		if(bitmapFilePath != null)
+			context.deleteFile(bitmapFilePath);
+		db.delete(DATABASE_TABLE, AUTO_ROUTE_NAME_COL + " = ?", new String[]{entryName});
+		db.close();
+	}
 	
 	
 	
 	public void addRouteEntry(BitmapEntry b)
 	{
-		ContentValues matchValues = new ContentValues();
-		matchValues.put(AUTO_ROUTE_NAME, b.getBitmapName());
-
+		ContentValues entryValues = new ContentValues();
+		entryValues.put(AUTO_ROUTE_NAME_COL, b.getName());
+		entryValues.put(NOTES_COL,b.getNotes());
 		
 		//alternate way: save bitmap to internal storage, and add file path to SQLite
 		String path = saveBitmapToInternalStorage(b);
@@ -114,26 +122,26 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 		}
 		else
 		{
-			matchValues.put(AUTO_BITMAP_PATH_COL, path);
+			entryValues.put(AUTO_BITMAP_PATH_COL, path);
 		}
 		
 		SQLiteDatabase d = this.getWritableDatabase();
-		d.insert(DATABASE_TABLE, null, matchValues);
+		d.insert(DATABASE_TABLE, null, entryValues);
 		d.close();
 		
 		
 	}
 	
-//	private String getMatchBitmapFilePath(int matchNumber)
-//	{
-//		SQLiteDatabase db = getReadableDatabase();
-//		Cursor cursor = db.query(DATABASE_TABLE, null , MATCH_NUMBER_COL + " = ?", new String[]{String.valueOf(matchNumber)}, null, null, null);
-//		if(cursor.moveToFirst())
-//			return cursor.getString(11);
-//		else
-//			return null;
-//	}
-	
+	private String getEntryBitmapFilePath(String name)
+	{
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(DATABASE_TABLE, null , AUTO_ROUTE_NAME_COL + " = ?", new String[]{name}, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getString(1);
+		else
+			return null;
+	}
+
 	/**
 	 * 
 	 * @param m match whose bitmap is to be saved
@@ -142,7 +150,7 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 	private String saveBitmapToInternalStorage(BitmapEntry b)
 	{
 		FileOutputStream outputStream;
-		String fileName = b.getBitmapName();
+		String fileName = b.getName();
 		Bitmap bitmap = b.getBitmap();
 		if(bitmap == null)
 			return null;

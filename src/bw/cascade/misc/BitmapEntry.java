@@ -4,18 +4,21 @@ import android.graphics.Bitmap;
 
 public class BitmapEntry {
 	private Bitmap bitmap;
-	private String bitmapName;
+	private String name;
+	private String notes;
 	
 	public BitmapEntry() {
 		super();
 		this.bitmap = null;
-		this.bitmapName = null;
+		this.name = null;
+		this.notes = null;
 	}
 	
-	public BitmapEntry(Bitmap bitmap, String bitmapName) {
+	public BitmapEntry(Bitmap bitmap, String name,String notes) {
 		super();
 		this.bitmap = bitmap;
-		this.bitmapName = bitmapName;
+		this.name = name;
+		this.notes = notes;
 	}
 	
 	public Bitmap getBitmap() {
@@ -24,11 +27,19 @@ public class BitmapEntry {
 	public void setBitmap(Bitmap bitmap) {
 		this.bitmap = bitmap;
 	}
-	public String getBitmapName() {
-		return bitmapName;
+	public String getName() {
+		return name;
 	}
-	public void setBitmapName(String bitmapName) {
-		this.bitmapName = bitmapName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 	
 	
