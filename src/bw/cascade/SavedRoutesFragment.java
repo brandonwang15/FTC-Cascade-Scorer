@@ -31,7 +31,7 @@ public class SavedRoutesFragment extends Fragment {
 	private ArrayList<BitmapEntry> savedRoutes;
 	private ArrayList<String> adapterData;//choices for array adapter
 	
-	private MainActivity callback;
+	private DrawRoutesActivity callback;
 	public SavedRoutesFragment(ArrayList<BitmapEntry> savedRoutes)
 	{
 		this.savedRoutes = savedRoutes;
@@ -41,7 +41,7 @@ public class SavedRoutesFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		
-		callback = (MainActivity)getActivity();
+		callback = (DrawRoutesActivity)getActivity();
 	}
 	
 	
