@@ -25,7 +25,7 @@ public class AutoRoutesDatabase extends SQLiteOpenHelper{
 
 	private Context context;
 	
-	private static final int VERSION = 4;
+	private static final int VERSION = 7;
 	private static final String DATABASE_NAME = "matchDB";
 	private static final String DATABASE_TABLE = "matches";
 	//private static final String MATCH_NUMBER_COL = "MatchNum";
